@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Books & Authors</title>
+</head>
+
+<body>
+    <div class="col-md-4" style="display:inline-block; vertical-align: top; margin-left:250px; margin-top:150px;">
+        <form action="/add_book" method="POST" name="add_book">
+            {% csrf_token %}
+            <div class="form-group">
+                <h1 class="display-3">Add a Book</h1>
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" aria-describedby="title" name="book_title_form">
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" id="description" name="book_desc_form">
+            </div>
+            <button type="submit" class="btn btn-outline-success">Add</button>
+        </form>
+    </div>
+    <div style="width:400px; display:inline-block; vertical-align: top;margin-top:150px;">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for books in all_books %}
+                    <tr>
+                        <td>{{ books.id }}</td>
+                        <td>{{ books.title }}</td>
+                        <td><a href="/books/{{ books.id }}">View</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>        
+</body>
+
+</html>

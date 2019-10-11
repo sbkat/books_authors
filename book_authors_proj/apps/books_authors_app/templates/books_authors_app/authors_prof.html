@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Books & Authors</title>
+</head>
+
+<body style="margin-left:30px;">
+    <div>
+        <h1 class="display-4" style="color:rgb(194, 15, 15);">{{all_authors.first_name}} {{all_authors.last_name}}</h1>
+        <h1 class="display-4">ID: {{all_authors.id}}</h1>
+        <h1 class="display-4">Notes:</h1> <p class="lead" style="margin-left:20px;">{{all_authors.notes}}</p>
+        <h1 class="display-4">Books:</h1> 
+            {% for books in all_authors.books.all %}
+               <p class="lead" style="margin-left:20px;"> 
+                {{ books.title }} </p>
+            {% endfor %}
+    </div>
+    
+    <div>
+        <form action="/add_book_to_author/{{all_authors.id}}" method="POST" style="width:400px;" class="form-inline">
+            {% csrf_token %}
+            <select name="add_a_book" class="form-control form-control" style="margin-right:15px;">
+                <option>- select a book to add -</option>
+
+                {% for books in all_books %}    
+                    <option value="{{books.id}}">{{ books.title }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-outline-success">Add</button>
+        </form>    
+    </div>
+
+
+</body>
+
+</html>
